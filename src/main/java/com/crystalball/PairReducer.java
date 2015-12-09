@@ -18,7 +18,7 @@ public class PairReducer extends Reducer<Pair,IntWritable,Pair,FloatWritable>{
     	  sum += val.get();
       }
       
-      if(key.getNeighbour().equals("0")){
+      if(("0").equals(key.getNeighbour())){
     	  total = sum;
       }else{
     	  result.set(sum/total);
