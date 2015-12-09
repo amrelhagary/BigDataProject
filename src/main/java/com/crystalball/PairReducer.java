@@ -2,8 +2,8 @@ package com.crystalball;
 
 import java.io.IOException;
 
-import org.apache.hadoop.io.*;
-import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.FloatWritable;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class PairReducer extends Reducer<Pair,IntWritable,Pair,FloatWritable>{

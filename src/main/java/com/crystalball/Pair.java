@@ -1,6 +1,5 @@
 package com.crystalball;
 
-import java.util.*;
 
 public class Pair {
 	private String word;
