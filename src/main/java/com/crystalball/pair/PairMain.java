@@ -1,4 +1,4 @@
-package com.crystalball;
+package com.crystalball.pair;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -15,7 +15,6 @@ public class PairMain {
 		// TODO Auto-generated method stub
 		
 	    Configuration conf = new Configuration();
-	    conf.set("mapred.job.tracker", "local");
 	    Job job = Job.getInstance(conf, "Pair");
 	    job.setJarByClass(PairMain.class);
 	    job.setMapperClass(PairMapper.class);

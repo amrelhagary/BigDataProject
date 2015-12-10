@@ -1,4 +1,4 @@
-package com.crystalball;
+package com.crystalball.pair;
 
 import java.util.*;
 
