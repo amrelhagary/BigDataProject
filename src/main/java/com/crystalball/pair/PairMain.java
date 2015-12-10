@@ -1,6 +1,7 @@
 package com.crystalball.pair;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
@@ -24,6 +25,12 @@ public class PairMain {
 	    job.setOutputValueClass(IntWritable.class);
 	    FileInputFormat.addInputPath(job, new Path(args[0]));
 	    FileOutputFormat.setOutputPath(job, new Path(args[1]));
+		
+	    // Delete output if exists
+ 		FileSystem hdfs = FileSystem.get(conf);
+ 		if (hdfs.exists(new Path(args[1])))
+ 			hdfs.delete(new Path(args[1]), true);
+	 			
 	    System.exit(job.waitForCompletion(true) ? 0 : 1);
 	}
 
