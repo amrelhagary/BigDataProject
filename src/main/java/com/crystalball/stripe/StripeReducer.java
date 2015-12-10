@@ -11,6 +11,8 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Reducer;
 
+import com.crystalball.pair.Util;
+
 public class StripeReducer  extends Reducer<Text,MapWritable,Text,Text>{
 	int total = 0;
 	 public void reduce(Text key, Iterable<MapWritable> stripes,
@@ -30,18 +32,23 @@ public class StripeReducer  extends Reducer<Text,MapWritable,Text,Text>{
 				 if(!hf.containsKey(k))
 					 hf.put(k, new DoubleWritable(v));
 				 else{
-					 double value = ((DoubleWritable) hf.get(k)).get();
-					 
+					 double value = ((DoubleWritable) hf.get(k)).get();					 
 					 hf.put(k, new DoubleWritable(v+value));
 				 }
 				 total = total + v;
 			 }
 		 }
 		 
-		 Iterator<MapWritable> it = stripes.iterator();
-		 while(it.hasNext()){
+		 // calculate relative frequency
+		 for(Entry<Writable,Writable> entry : hf.entrySet()){
+			 Text k = (Text) entry.getKey();
+			 double v =  ((DoubleWritable) hf.get(k)).get();
+			 double f = v/total;
 			 
+			 hf.put(k,new DoubleWritable(f));
 		 }
 		 
+		 // emit
+		 context.write(key,Util.MapWritableToText(hf));
 	 }
 }
