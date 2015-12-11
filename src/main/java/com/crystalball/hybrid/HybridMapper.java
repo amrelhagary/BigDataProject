@@ -24,21 +24,25 @@ public class HybridMapper extends Mapper<Object, Text, Pair, IntWritable>{
 	
 	@Override
 	public void map(Object key, Text doc, Context context){
-		String[] input = doc.toString().split(" ");
-		ArrayList<String> neighbours;
 		
-		for(int i = 0 ; i < input.length-1 ; i++){
-			// find neighbors
-			neighbours = Util.getNeighbours(i, input);
-			// emit key value
-			for(int j=0 ; j < neighbours.size() ; j++){
-				
-				Pair p = new Pair(input[i],neighbours.get(j));
-				if(!map.containsKey(p))
-					map.put(p,1);
-				else{
-					int v = map.get(p);
-					map.put(p,v+=1);
+		String[] lines = doc.toString().split(System.getProperty("line.separator"));
+		for (String line : lines) {
+			String[] input = line.toString().split(" ");
+			ArrayList<String> neighbours;
+
+			for (int i = 0; i < input.length - 1; i++) {
+				// find neighbors
+				neighbours = Util.getNeighbours(i, input);
+				// emit key value
+				for (int j = 0; j < neighbours.size(); j++) {
+
+					Pair p = new Pair(input[i], neighbours.get(j));
+					if (!map.containsKey(p))
+						map.put(p, 1);
+					else {
+						int v = map.get(p);
+						map.put(p, v += 1);
+					}
 				}
 			}
 		}

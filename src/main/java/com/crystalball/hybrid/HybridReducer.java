@@ -30,8 +30,6 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
 
 	public void reduce(Pair pair, Iterable<IntWritable> counts, Context context)
 			throws IOException, InterruptedException {
-
-		logger.info("=====================");
 		// check the current term
 		if (currentTerm == null)
 			currentTerm = pair.getWord();
@@ -51,13 +49,8 @@ public class HybridReducer extends Reducer<Pair, IntWritable, Text, Text> {
 			map.put(new Text(pair.getNeighbour()), new IntWritable(0));
 		}
 
-		for (IntWritable c : counts){
-			logger.info("=====================");
-			logger.info("pair : " + pair);
-			
-			
+		for (IntWritable c : counts){			
 			int	value = ((IntWritable) map.get(new Text(pair.getNeighbour()))).get() + c.get();
-			
 			map.put(new Text(pair.getNeighbour()), new IntWritable(value));
 			marginal = marginal + c.get();
 		}

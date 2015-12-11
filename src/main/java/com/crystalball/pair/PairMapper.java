@@ -19,10 +19,9 @@ public class PairMapper extends Mapper<Object, Text, Pair, IntWritable>{
 	@Override
 	public void map(Object key, Text doc, Context context) throws IOException, InterruptedException{
 		
-//		String[] lines = doc.toString().split(System.getProperty("line.seperator"));
-//		logger.info(lines.toString());
-//		for(String line : lines){
-			String[] input = doc.toString().split(" ");
+		String[] lines = doc.toString().split(System.getProperty("line.separator"));
+		for(String line : lines){
+			String[] input = line.toString().split(" ");
 			ArrayList<String> neighbours;
 			
 			for(int i = 0 ; i < input.length-1 ; i++){
@@ -35,6 +34,6 @@ public class PairMapper extends Mapper<Object, Text, Pair, IntWritable>{
 					context.write(new Pair(input[i],neighbours.get(j)),one);
 				}
 			}
-//		}
+		}
 	}
 }
