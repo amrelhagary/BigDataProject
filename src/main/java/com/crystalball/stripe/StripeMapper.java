@@ -1,14 +1,11 @@
 package com.crystalball.stripe;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-
-import com.crystalball.common.Util;
 
 public class StripeMapper extends Mapper<Object, Text, Text, MapWritable> {
 
@@ -17,24 +14,26 @@ public class StripeMapper extends Mapper<Object, Text, Text, MapWritable> {
 
 		String[] lines = doc.toString().split(System.getProperty("line.separator"));
 		for (String line : lines) {
-			String[] input = line.toString().split(" ");
-			ArrayList<String> neighbours;
+			String[] input = line.toString().split(" ");			
 
-			for (int i = 0; i < input.length; i++) {
-				neighbours = Util.getNeighbours(i, input);
-				MapWritable h = new MapWritable();
-				for (int j = 0; j < neighbours.size(); j++) {
-					Text neighbour = new Text(neighbours.get(j));
-					if (!h.containsKey(neighbours.get(j))) {
-						h.put(neighbour, new IntWritable(1));
+			for (int i = 0; i < input.length - 1; i++) {
+				String currentTerm = input[i];
+				MapWritable stripes = new MapWritable();
+				for (int j = i+1; j < input.length; j++) {
+					if (currentTerm.equals(input[j]))
+						break;
+					Text curNeighbor = new Text(input[j]);
+					if (stripes.containsKey(curNeighbor)) {
+						int counter = ((IntWritable)stripes.get(curNeighbor)).get();
+						counter++;
+						stripes.put(curNeighbor, new IntWritable(counter));
 					} else {
-						int cnt = ((IntWritable) h.get(neighbour)).get();
-						cnt = +cnt;
-						h.put(neighbour, new IntWritable(cnt));
+						stripes.put(curNeighbor, new IntWritable(1));
 					}
 				}
-				context.write(new Text(input[i]), h);
+				context.write(new Text(currentTerm), stripes);
 			}
+
 		}
 	}
 }
