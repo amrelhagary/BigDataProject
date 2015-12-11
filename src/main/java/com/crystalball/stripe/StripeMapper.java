@@ -8,7 +8,7 @@ import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-import com.crystalball.pair.Util;
+import com.crystalball.common.Util;
 
 public class StripeMapper extends Mapper<Object, Text, Text, MapWritable> {
 

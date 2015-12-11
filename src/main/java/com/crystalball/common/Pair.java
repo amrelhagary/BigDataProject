@@ -1,10 +1,12 @@
-package com.crystalball.pair;
+package com.crystalball.common;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.log4j.Logger;
+
+import com.crystalball.pair.PairMapper;
 
 public class Pair implements WritableComparable<Pair>{
 	

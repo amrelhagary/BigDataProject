@@ -7,6 +7,8 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.log4j.Logger;
 
+import com.crystalball.common.Pair;
+
 public class PairReducer extends Reducer<Pair,IntWritable,Pair,FloatWritable>{
     private FloatWritable result = new FloatWritable();
     private int total = 0;

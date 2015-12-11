@@ -1,4 +1,4 @@
-package com.crystalball.pair;
+package com.crystalball.common;
 
 import java.util.ArrayList;
 import java.util.Map.Entry;

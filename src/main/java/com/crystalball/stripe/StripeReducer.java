@@ -11,7 +11,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Reducer;
 
-import com.crystalball.pair.Util;
+import com.crystalball.common.Util;
 
 public class StripeReducer  extends Reducer<Text,MapWritable,Text,Text>{
 	int total = 0;

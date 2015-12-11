@@ -1,11 +1,15 @@
 package com.crystalball.pair;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.log4j.Logger;
+
+import com.crystalball.common.Pair;
+import com.crystalball.common.Util;
 
 public class PairMapper extends Mapper<Object, Text, Pair, IntWritable>{
 
